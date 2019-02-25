@@ -23,7 +23,7 @@ if (! defined('WPINC')) {
 
 add_filter('custom_menu_order', '__return_true');
 
-add_filter('menu_order', function ($items) {
+add_filter('menu_order', function (array $items): array {
     $edits = array_sort(array_filter($items, function (string $item): bool {
         return Str::startsWith($item, 'edit.php');
     }));
@@ -53,7 +53,7 @@ add_filter('menu_order', function ($items) {
     return Arr::collapse([$noneditsBeforeSperator, ['gf_edit_forms', 'upload.php'], $edits, $noneditsAfterSperator]);
 }, 799999);
 
-add_filter('menu_order', function ($items) {
+add_filter('menu_order', function (array $items): array {
     $items = array_filter($items, function (string $item): bool {
         return 'kinsta-tools' !== $item;
     });
@@ -63,7 +63,7 @@ add_filter('menu_order', function ($items) {
     return $items;
 }, 999999);
 
-add_filter('menu_order', function ($items) {
+add_filter('menu_order', function (array $items): array {
     return array_filter($items, function (string $item): bool {
         return 'edit-comments.php' !== $item;
     });
