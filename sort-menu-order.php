@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Plugin Name:     Sort Menu Order
  * Plugin URI:      https://github.com/ItinerisLtd/sort-menu-order
  * Description:     Menu Order
- * Version:         0.1.0
+ * Version:         0.1.1
  * Author:          Itineris Limited
  * Author URI:      https://www.itineris.co.uk/
  * Text Domain:     sort-menu-order
