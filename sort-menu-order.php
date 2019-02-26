@@ -21,6 +21,10 @@ if (! defined('WPINC')) {
     die;
 }
 
+add_action( 'admin_menu', function (): void {
+    remove_menu_page( 'edit-comments.php' );
+});
+
 add_filter('custom_menu_order', '__return_true');
 
 add_filter('menu_order', function (array $items): array {
@@ -28,43 +32,26 @@ add_filter('menu_order', function (array $items): array {
         return Str::startsWith($item, 'edit.php');
     }));
 
-    $nonedits = array_filter($items, function (string $item): bool {
-        return ! Str::startsWith($item, 'edit.php') && 'upload.php' !== $item && 'gf_edit_forms' !== $item;
-    });
+    $nonedits = array_diff($items, $edits, ['upload.php', 'gf_edit_forms']);
 
-    $noneditsBeforeSperator = [];
+    $noneditsBeforeSperator = $nonedits;
     $noneditsAfterSperator = [];
 
-    $pointer = false;
-    foreach ($nonedits as $item) {
-        if ('separator1' === $item) {
-            $noneditsBeforeSperator[] = $item;
-            $pointer = true;
-            continue;
-        }
-
-        if ($pointer) {
-            $noneditsAfterSperator[] = $item;
-        } else {
-            $noneditsBeforeSperator[] = $item;
-        }
+    $speratorKey = array_search('separator1', $items);
+    if ($speratorKey !== false) {
+        $noneditsBeforeSperator = array_slice($nonedits, 0, $speratorKey);
+        $noneditsAfterSperator = array_slice($nonedits, $speratorKey, -1);
     }
 
     return Arr::collapse([$noneditsBeforeSperator, ['gf_edit_forms', 'upload.php'], $edits, $noneditsAfterSperator]);
-}, 799999);
+}, -10);
 
 add_filter('menu_order', function (array $items): array {
-    $items = array_filter($items, function (string $item): bool {
-        return 'kinsta-tools' !== $item;
-    });
-
-    $items[] = 'kinsta-tools';
+    $key = array_search('kinsta-tools', $items);
+    if ($key !== false) {
+        unset($items[$key]);
+        $items[] = 'kinsta-tools';
+    }
 
     return $items;
-}, 999999);
-
-add_filter('menu_order', function (array $items): array {
-    return array_filter($items, function (string $item): bool {
-        return 'edit-comments.php' !== $item;
-    });
-}, 1099999);
+}, 20);
