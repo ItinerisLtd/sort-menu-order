@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Plugin Name:     Sort Menu Order
  * Plugin URI:      https://github.com/ItinerisLtd/sort-menu-order
  * Description:     Custom WP Admin Menu Order
- * Version:         0.4.0
+ * Version:         0.4.1
  * Author:          Itineris Limited
  * Author URI:      https://www.itineris.co.uk/
  * Text Domain:     sort-menu-order
