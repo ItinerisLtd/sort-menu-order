@@ -1,7 +1,7 @@
 {
     "name": "itinerisltd/sort-menu-order",
     "type": "wordpress-muplugin",
-    "description": "Sort menu order.",
+    "description": "Custom WP Admin Menu Order",
     "keywords": [
         "menu",
         "wordpress",
